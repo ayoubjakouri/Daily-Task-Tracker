@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Http\Requests\Category\StoreFormRequest;
+use App\Http\Requests\Category\UpdateFormRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CategoryController extends Controller
@@ -36,13 +38,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFormRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
-
-        Auth::user()->categories()->create($validated);
+       
+        Auth::user()->categories()->create( $request->validated());
 
         return redirect()->route('categories.index')
             ->with('success', 'Category created successfully!');
@@ -71,15 +70,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateFormRequest $request, Category $category)
     {
-        $this->authorize('update', $category);
+        ;
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
-
-        $category->update($validated);
+        $category->update($request->validated());
 
         return redirect()->route('categories.index')
             ->with('success', 'Category updated successfully!');
