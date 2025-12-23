@@ -19,8 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('/categories', CategoryController::class)->middleware(['auth', 'verified']);
 
-Route::resource('tasks', TaskController::class)->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('tasks', TaskController::class);
+    Route::post('tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
+    Route::post('tasks/{task}/incomplete', [TaskController::class, 'incomplete'])->name('tasks.incomplete');
+});
 
 require __DIR__.'/auth.php';
+

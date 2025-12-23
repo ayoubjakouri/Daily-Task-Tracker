@@ -7,6 +7,9 @@
             <a href="{{ route('categories.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
                 {{ __('Create Category') }}
             </a>
+            <a href="{{ route('tasks.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                {{ __('Create Task') }}
+            </a>`
         </div>
     </x-slot>
 
@@ -20,7 +23,7 @@
                 </div>
             </div>
 
-            <!-- Action Cards -->
+            <!-- Action category Cards  -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Create Category Card -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -88,6 +91,75 @@
                     </div>
                 </div>
             </div>
+            <!-- Action Task Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Create Task Card -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center justify-center w-12 h-12 mx-auto bg-blue-100 rounded-md mb-4">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center text-gray-900 mb-2">
+                            {{ __('Create New task') }}
+                        </h3>
+                        <p class="text-gray-600 text-center text-sm mb-4">
+                            {{ __('Add a new task ') }}
+                        </p>
+                        <div class="text-center">
+                            <a href="{{ route('tasks.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150">
+                                {{ __('Create Now') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View All Categories Card -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center justify-center w-12 h-12 mx-auto bg-green-100 rounded-md mb-4">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center text-gray-900 mb-2">
+                            {{ __('View All Task') }}
+                        </h3>
+                        <p class="text-gray-600 text-center text-sm mb-4">
+                            {{ __('Browse and manage all your tasks') }}
+                        </p>
+                        <div class="text-center">
+                            <a href="{{ route('tasks.index') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ease-in-out duration-150">
+                                {{ __('View All') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Category Card -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center justify-center w-12 h-12 mx-auto bg-purple-100 rounded-md mb-4">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center text-gray-900 mb-2">
+                            {{ __('Recent tasks') }}
+                        </h3>
+                        <p class="text-gray-600 text-center text-sm mb-4">
+                            {{ __('View your most recently created categories') }}
+                        </p>
+                        <div class="text-center">
+                            <a href="{{ route('tasks.index') }}" class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition ease-in-out duration-150">
+                                {{ __('View Recent') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Quick Stats (Optional) -->
             <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">

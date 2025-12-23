@@ -42,6 +42,10 @@ class Task extends Model
     {
         return Attribute::make(
             get: fn () => !is_null($this->completed_at)
+            // get: function()
+            // {
+            //     return !is_null($this->completed_at);
+            // }
         );
     }
 

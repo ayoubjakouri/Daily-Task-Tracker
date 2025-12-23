@@ -75,6 +75,9 @@
                                             </div>
                                         </div>
                                         <div class="ml-4 flex flex-shrink-0 gap-2">
+                                            <a href="{{ route('tasks.index') }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150">
+                                                {{ __('Tasks') }}
+                                            </a>
                                             <a href="{{ route('categories.edit', $category) }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150">
                                                 {{ __('Edit') }}
                                             </a>

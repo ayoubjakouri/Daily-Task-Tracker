@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
 use App\Models\Task;
+use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Auth::user()
-            ->tasks()
+        $tasks = Task::with('category')
+            ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
@@ -29,7 +30,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        $categories = Category::where('user_id', Auth::id())->pluck('name', 'id');
+
+        return view('tasks.create', compact('categories'));
     }
 
     /**
@@ -51,7 +54,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $this->authorize('store', $task);
+        $this->authorize('view', $task);
 
         return view('tasks.show', compact('task'));
     }
@@ -61,8 +64,11 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $this->authorize('edit', $task);
-        return view('tasks.edit', compact('task'));
+        $this->authorize('update', $task);
+
+        $categories = Category::where('user_id', Auth::id())->pluck('name', 'id');
+
+        return view('tasks.edit', compact('task', 'categories'));
     }
 
     /**
@@ -76,7 +82,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('sucess', 'Task updated successfully !!');
+            ->with('success', 'Task updated successfully !!');
     }
 
     /**
@@ -84,9 +90,36 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        $this->authorize('destroy', $task);
+        $this->authorize('delete', $task);
+
+        $task->delete();
+
         return redirect()
             ->route('tasks.index')
-            ->with('sucess', 'Task deleted successfully !!');
+            ->with('success', 'Task deleted successfully !!');
+    }
+
+    /**
+     * Mark task complete.
+     */
+    public function complete(Task $task)
+    {
+        $this->authorize('update', $task);
+
+        $task->update(['completed_at' => now()]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task marked complete.');
+    }
+
+    /**
+     * Mark task incomplete.
+     */
+    public function incomplete(Task $task)
+    {
+        $this->authorize('update', $task);
+
+        $task->update(['completed_at' => null]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task marked incomplete.');
     }
 }
