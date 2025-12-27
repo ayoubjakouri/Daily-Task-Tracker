@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
+use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -11,16 +12,26 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    use AuthorizesRequests ;
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request) 
     {
-        $tasks = Task::with('category')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->get();
+        // $tasks = Task::with('category')
+        //     ->where('user_id', Auth::id())
+        //     ->latest()
+        //     ->get();
+        $query = auth()->user()->tasks()->with('category');
+
+        // 🔍 Filter by category
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        $tasks = $query->latest()->get();
+
+
 
         return view('tasks.index', compact('tasks'));
     }

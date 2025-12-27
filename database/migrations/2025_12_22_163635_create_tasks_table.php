@@ -24,12 +24,19 @@ return new class extends Migration
 
             // Relations
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->foreignId('category_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->unique([
+                'user_id',
+                'category_id',
+                'title',
+                'due_date'
+            ]);
 
             $table->timestamps();
         });
